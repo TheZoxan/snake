@@ -1,24 +1,19 @@
 import pygame
-pygame.init()
 
-# Create display game
-window = pygame.display.set_mode((600, 600))
-pygame.display.set_caption("Snake")
-flag_game = True
 
-head = [45, 45]
+class Snake:
+    def __init__(self):
+        self.head = [45, 45]
 
-speed = 0
-# Cycle so that the window does not close
-while flag_game:
-    # Create a way out of the game
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            flag_game = False
-    window.fill(pygame.Color("black"))
-    pygame.draw.rect(window, pygame.Color("green"), pygame.Rect(head[0], head[1], 10, 10))
-    if speed % 100 == 0:
-        head[0] += 10
-    speed += 1
-    pygame.display.flip()
+    def move(self, control):
+        if control.flag_direction == "RIGHT":
+            self.head[0] += 10
+        elif control.flag_direction == "LEFT":
+            self.head[0] -= 10
+        elif control.flag_direction == "UP":
+            self.head[1] -= 10
+        elif control.flag_direction == "DOWN":
+            self.head[1] += 10
 
+    def draw_snake(self, window):
+        pygame.draw.rect(window, pygame.Color("GREEN"), pygame.Rect(self.head[0], self.head[1], 10, 10))
