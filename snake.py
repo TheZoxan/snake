@@ -1,5 +1,4 @@
 import pygame
-from gui import Gui
 from control import Control
 
 class Snake:
@@ -32,5 +31,22 @@ class Snake:
             self.head[1] = 419
         elif self.head[1] == 419:
             self.head[1] = 34
+
+
+    def eat_food(self, food, gui):
+        if self.head == food.food_position:
+            self.body.append(food.food_position)
+            food.get_food_position(gui)
+            gui.get_new_indicator()
+
+    def check_barrier(self, gui):
+        if self.head in gui.barrier:
+            self.body.pop()
+            gui.indicator.pop()
+        if self.head in self.body[1:]:
+            self.body.pop()
+            gui.indicator.pop()
+
+
 
 
